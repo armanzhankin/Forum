@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/main.css">
+  <title>Forum</title>
+</head>
+<body>
+<header>
+  <nav class="navbar">
+    <ul class="menu">
+      <li><a href="/">Home</a></li>
+
+    </ul>
+
+    <ul class="menu">
+      <li><a href="/create">Create Post</a></li>
+      <li><a href="/myposts">Myposts</a></li>
+      <li><a href="/likedpost">LikedPosts</a></li>
+      {{if .User.Id}}
+      <li><a href="/logout">Logout</a></li>
+      {{else}}
+      <li><a href="/login">Login</a></li>
+      <li><a href="/signup">Sign Up</a></li>
+      {{end}}
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <h2 class="latest">Liked Posts</h2>
+
+
+  <div class="posts-centralize">
+    <div class="post-container">
+      {{range .Post}}
+      <div class="post">
+        <h2 class="title">Title: <a href="/post/{{.Id}}">{{.Title}}</a></h2>
+
+        <p class="post-category">Category: {{range .Category}} {{.}} {{end}}</p>
+
+        <p class="author_username">Author: {{.Author}}</p>
+        <p class="post_likes">Likes: {{.Like}}</p>
+        <p class="post_dislikes">Dislikes: {{.Dislike}}</p>
+      </div>
+      {{end}}
+    </div>
+  </div>
+</main>
+
+<footer>
+
+</footer>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    color: #333333;
+  }
+
+  header {
+    background-color: #8fc8eb;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    padding: 0 20px;
+  }
+
+  nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav li {
+    margin-left: 20px;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 18px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  nav a:hover {
+    color: #8fc8eb;
+  }
+
+  main {
+    padding: 40px 20px;
+  }
+
+  .latest {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 40px;
+  }
+
+  .post-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+  }
+
+  .post {
+    background-color: #ffffff;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    padding: 20px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .post:hover {
+    transform: translateY(-10px);
+  }
+
+  .title {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
+  .title a {
+    color: #1e91d6;
+  }
+
+  .post-category {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
+  .author_username {
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+
+  .post_likes,
+  .post_dislikes {
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+
+  footer {
+    background-color: #C7E4F5;
+    height: 80px;
+  }
+
+</style>
+</body>
+</html>

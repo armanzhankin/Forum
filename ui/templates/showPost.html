@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/main.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <ul class="menu">
+                <li><a href="/">Home</a></li>
+                
+              </ul>
+
+              <ul class="menu">
+                <li><a href="/create">Create Post</a></li>
+                  <li><a href="/myposts">Myposts</a></li>
+                  <li><a href="/likedpost">LikedPosts</a></li>
+                {{if .User.Id}}
+                <li><a href="/logout">Logout</a></li>
+                {{else}}
+                <li><a href="/login">Login</a></li>
+                <li><a href="/signup">Sign Up</a></li>
+                {{end}}
+              </ul>
+        </nav>
+    </header>
+
+    {{if .Post}}
+    <div class="post">
+        <div class="data">
+            <h3>Title</h3><strong>{{.Post.Title}}</strong>
+            <h3>Category</h3><strong>{{range .Post.Category}} {{.}} {{end}}</strong>
+            <h3>Author: {{.Post.Author}}</h3> 
+        </div>
+
+        <h3>Post Content</h3><pre><p>{{.Post.Content}}</p></pre>
+        <h3>Likes: {{.Post.Like}}</h3>
+        <h3>Dislikes: {{.Post.Dislike}}</h3>
+
+        <div class="post-footer">
+            <form action="/like-post" method="post">
+                <button type="submit" name="value" value="{{.Post.Id}}">Like</button>
+            </form>
+            <form action="/dislike-post" method="post">
+                <button type="submit" name="value" value="{{.Post.Id}}">Dislike</button>
+            </form>
+        </div>
+
+    </div>
+    {{end}}
+
+    
+
+    {{if .Comments}} 
+    <h3>Post Comments</h3>
+    {{range .Comments}}
+    <div class="comments">
+        
+
+        <div class="com">
+            <h3>Comment Author: {{.Author}}</h3>
+            <p>{{.Content}}</p>
+            <p>Likes: {{.Likes}}</p>
+            <p>Dislikes: {{.Dislikes}}</p>
+            <form action="/like-comment" method="post">
+                <button type="submit" name="value" value="{{.Id}}">Like</button>
+            </form>
+            <form action="/dislike-comment" method="post">
+                <button type="submit" name="value" value="{{.Id}}">Dislike</button>
+            </form>
+        </div>
+        
+    </div>
+    {{end}}
+    {{else}}
+    <h2 class="com_title">Leave first comment</h2>
+    
+    {{end}}
+
+    {{if .Err}}
+    {{.}}
+    {{end}}
+    
+    <div class="new_com">
+        <form action="/post/{{.Post.Id}}" method="post">
+            <textarea name="comment" id="" value="comment"></textarea>
+            <button type="submit" value="Submit">Send</button>
+        </form>
+    </div>
+    <style>
+        /* Global styles */
+
+        .com_title{
+            text-align: center;
+        }
+
+        .new_com {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            font-family: "Roboto", sans-serif;
+            font-size: 16px;
+            color: #333333;
+        }
+
+        /* Header styles */
+
+        header {
+            background-color: #8fc8eb;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+            padding: 0 20px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            margin-left: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 500;
+            font-size: 18px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        nav a:hover {
+            color: #8fc8eb;
+        }
+
+        /* Post styles */
+
+        .post {
+            display: flex;
+            flex-direction: column;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .post h3 {
+            margin-bottom: 5px;
+        }
+
+        .post-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .post-footer form {
+            margin: 0;
+        }
+
+        .post-footer button[type="submit"] {
+            background-color: #0072bb;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 3px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 0;
+        }
+
+        .post-footer button[type="submit"]:hover {
+            background-color: #1e91d6;
+        }
+
+        /* Comments styles */
+
+        .comments {
+            display: flex;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .com {
+            margin-left: 20px;
+        }
+
+        .com h3 {
+            margin-bottom: 5px;
+        }
+
+        .com p {
+            margin: 0;
+        }
+
+        .com form {
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+
+        .com button[type="submit"] {
+            background-color: #0072bb;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 0;
+        }
+
+        .com button[type="submit"]:hover {
+            background-color: #1e91d6;
+        }
+
+        /* Error message styles */
+
+        .msg {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .msg h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .msg h2 {
+            font-size: 24px;
+            margin-top: 0;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+    </style>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <ul class="menu">
+                <li><a href="/">Home</a></li>
+                
+              </ul>
+
+              <ul class="menu">
+                <li><a href="/create">Create Post</a></li>
+                  <li><a href="/myposts">Myposts</a></li>
+                  <li><a href="/likedpost">LikedPosts</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/signup">Sign Up</a></li>
+              </ul>
+        </nav>
+    </header>
+
+    {{with .Errs}}
+        <p>{{.}}</p>
+    {{end}}
+
+    <form action="/login" method="POST" novalidate>
+        <label>Login</label>
+        <input type="login" name="login" placeholder="...">
+        <label>Password</label>
+        <input type="password" name="password" placeholder="">
+        <button type="submit" value="Submit">Submit</button>
+    </form>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #ffffff;
+        font-family: "Roboto", sans-serif;
+        font-size: 16px;
+        color: #333333;
+    }
+
+    header {
+        background-color: #8fc8eb;
+    }
+
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 80px;
+        padding: 0 20px;
+    }
+
+    nav ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    nav li {
+        margin-left: 20px;
+    }
+
+    nav a {
+        text-decoration: none;
+        color: #ffffff;
+        font-weight: 500;
+        font-size: 18px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    nav a:hover {
+        color: #8fc8eb;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    label {
+        margin-top: 10px;
+    }
+
+    input,
+    select {
+        padding: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        font-size: 16px;
+    }
+
+    select:disabled {
+        background-color: #f5f5f5;
+    }
+
+    button[type="submit"] {
+        background-color: #0072bb;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 3px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #1e91d6;
+    }
+
+</style>
+</body>
+</html>
